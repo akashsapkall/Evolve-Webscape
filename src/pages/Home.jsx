@@ -8,7 +8,7 @@ import {
   Brain,
   Target,
 } from "lucide-react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 const fadeIn = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -16,7 +16,6 @@ const fadeIn = {
 };
 
 const Home = () => {
-  const navigate = useNavigate();
   return (
     <motion.div
       initial={{ opacity: 0 }}

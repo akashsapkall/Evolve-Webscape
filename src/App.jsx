@@ -23,7 +23,7 @@ function App() {
               whileHover={{ scale: 1.05 }}
             >
               <Code2 className="w-6 h-6 text-club-teal" />
-              <span className="text-club-teal">Tech Innovators Club</span>
+              <Link to="/"><span className="text-club-teal">Tech Innovators Club</span></Link>
             </motion.div>
             <ul className="flex flex-wrap justify-center gap-4 md:gap-6">
               {[
