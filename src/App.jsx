@@ -1,66 +1,78 @@
-import Home from "./pages/Home";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Code2, Home, Calendar, Rocket, Mail, Info } from "lucide-react";
+import HomePage from "./pages/Home";
 import Events from "./pages/Events";
 import Projects from "./pages/Projects";
-import { BrowserRouter, Link, Route, Routes } from "react-router";
+import JoinPage from "./pages/JoinPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="App flex flex-col min-h-screen">
+      <div className="App flex flex-col min-h-screen bg-[#5f6061]">
         {/* Navigation Bar */}
-        <header className="bg-gray-800 text-white p-4">
-          <nav className="container mx-auto flex justify-between items-center">
-            <div className="logo text-xl font-bold">
-              {/* Club Logo / Title */}
-              Tech Innovators Club
-            </div>
-            <ul className="flex space-x-4">
-              <li>
-                <Link
-                  to="/"
-                  className="hover:text-yellow-400 transition-colors duration-300"
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/events"
-                  className="hover:text-yellow-400 transition-colors duration-300"
-                >
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/projects"
-                  className="hover:text-yellow-400 transition-colors duration-300"
-                >
-                  Projects
-                </Link>
-              </li>
+        <motion.header 
+          initial={{ y: -100 }}
+          animate={{ y: 0 }}
+          className="bg-black text-club-mint p-4 shadow-lg"
+        >
+          <nav className="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <motion.div 
+              className="logo text-xl font-bold flex items-center gap-2"
+              whileHover={{ scale: 1.05 }}
+            >
+              <Code2 className="w-6 h-6 text-club-teal" />
+              <span className="text-club-teal">Tech Innovators Club</span>
+            </motion.div>
+            <ul className="flex flex-wrap justify-center gap-4 md:gap-6">
+              {[
+                { path: "/", name: "Home", icon: Home },
+                { path: "/events", name: "Events", icon: Calendar },
+                { path: "/projects", name: "Projects", icon: Rocket },
+                // { path: "/join", name: "Join", icon: Mail },
+                // { path: "/about", name: "About", icon: Info }
+              ].map((link) => (
+                <motion.li key={link.path} whileHover={{ scale: 1.1 }}>
+                  <Link
+                    to={link.path}
+                    className="text-club-mint hover:text-club-teal transition-colors duration-300 flex items-center gap-2 text-sm md:text-base"
+                  >
+                    <link.icon className="w-4 h-4" />
+                    {link.name}
+                  </Link>
+                </motion.li>
+              ))}
             </ul>
           </nav>
-        </header>
+        </motion.header>
 
         {/* Main Content */}
         <main className="container mx-auto flex-grow p-4">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/events" element={<Events />} />
-            <Route path="/projects" element={<Projects />} />
-          </Routes>
+          <AnimatePresence mode="wait">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/events" element={<Events />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/join" element={<JoinPage />} />
+              <Route path="/about" element={<AboutPage />} />
+            </Routes>
+          </AnimatePresence>
         </main>
 
         {/* Footer */}
-        <footer className="bg-gray-800 text-white p-4 text-center">
-          <p>
-            &copy; {new Date().getFullYear()} CSI MIT-WPU. All rights reserved.
+        <motion.footer 
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          className="bg-black text-club-mint p-4 text-center"
+        >
+          <p className="text-club-teal">
+            &copy; {new Date().getFullYear()} Tech Innovators Club. All rights reserved.
           </p>
-        </footer>
+        </motion.footer>
       </div>
     </BrowserRouter>
   );
 }
 
-export default App;
+export default App
